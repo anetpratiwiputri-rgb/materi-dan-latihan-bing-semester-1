@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Belajar Bahasa Inggris</title>
+<style>
+:root{--bg:#fff8dc;--card:#fffefa;--tx:#2e2500;--mu:#7a6a2e;--pr:#f5b700;--pd:#c98f00;--on:#2b2100;--soft:#fff1b8;--ok:#17803d;--no:#c0262d;--bd:#f0dc8a}
+@media(prefers-color-scheme:dark){:root{--bg:#1c1706;--card:#272008;--tx:#fff3c4;--mu:#d4bf6a;--pr:#ffd43b;--pd:#e0a800;--on:#241c00;--soft:#3b3010;--ok:#4cc27a;--no:#ff7b7f;--bd:#4a3d12}}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6}
+header{background:linear-gradient(135deg,#ffe066 0%,#ffc61a 55%,#f59f00 100%);color:#2b2100;padding:22px 16px 20px;border-radius:0 0 26px 26px;box-shadow:0 6px 18px rgba(245,159,0,.35)}
+.hd{max-width:860px;margin:0 auto}
+header h1{margin:0;font-size:1.55rem;letter-spacing:.2px}
+header p{margin:2px 0 14px;font-size:.92rem;opacity:.8}
+.id{display:flex;gap:8px;flex-wrap:wrap}
+.id input{flex:1;min-width:140px;padding:10px 12px;border:2px solid rgba(43,33,0,.15);border-radius:10px;font-size:.95rem;background:#fffdf0;color:#2b2100;outline:0}
+.id input:focus{border-color:#2b2100}
+main{max-width:860px;margin:0 auto;padding:16px 14px 30px}
+#nav{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px;margin-bottom:16px}
+#nav button{padding:10px;border:2px solid var(--bd);background:var(--card);color:var(--tx);border-radius:12px;cursor:pointer;font-size:.85rem;font-weight:600;text-align:left;transition:.15s}
+#nav button:hover{transform:translateY(-2px);border-color:var(--pr);box-shadow:0 4px 10px rgba(245,183,0,.3)}
+#nav button.on{background:var(--pr);border-color:var(--pd);color:var(--on);box-shadow:0 4px 12px rgba(245,183,0,.5)}
+#nav small{display:block;font-weight:400;color:var(--mu);margin-top:2px}
+#nav button.on small{color:var(--on);opacity:.75}
+#nav button.done:not(.on){background:var(--soft);border-color:var(--pd)}
+.card{background:var(--card);border:2px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px rgba(201,143,0,.1)}
+h2{margin:0 0 10px;font-size:1.2rem;display:inline-block;background:var(--pr);color:var(--on);padding:4px 14px;border-radius:999px}
+h3{margin:16px 0 6px;font-size:1rem;color:var(--pd);border-left:5px solid var(--pr);padding-left:9px}
+ul{padding-left:22px;margin:6px 0}li::marker{color:var(--pd)}
+.q{border-top:2px dashed var(--bd);padding:14px 0 6px}
+.q label{display:block;padding:9px 12px;margin:6px 0;border:2px solid var(--bd);border-radius:10px;cursor:pointer;transition:.12s}
+.q label:hover{background:var(--soft);border-color:var(--pr)}
+.q input{accent-color:var(--pd);margin-right:6px}
+.q label.ok{border-color:var(--ok);background:rgba(23,128,61,.15)}
+.q label.no{border-color:var(--no);background:rgba(192,38,45,.15)}
+button.b{background:var(--pr);color:var(--on);border:2px solid var(--pd);border-radius:12px;padding:10px 18px;font-size:.95rem;font-weight:700;cursor:pointer;margin:8px 8px 0 0;transition:.15s;box-shadow:0 3px 0 var(--pd)}
+button.b:hover{filter:brightness(1.06)}button.b:active{transform:translateY(3px);box-shadow:none}
+button.g{background:var(--card);color:var(--tx)}
+#res{font-weight:700;font-size:1.1rem;margin-top:12px;display:inline-block;background:var(--soft);border:2px solid var(--pr);padding:6px 14px;border-radius:12px}
+#res:empty{display:none}
+</style>
+</head>
+<body>
+<header>
+<div class="hd"><h1>📒 Belajar Bahasa Inggris</h1>
+<p>Pelajari materi, kerjakan latihan, lalu unduh laporan belajarmu ⭐</p>
+<div class="id"><input id="nm" placeholder="Nama siswa"><input id="kl" placeholder="Kelas"></div></div>
+</header>
+<main>
+<div id="nav"></div>
+<div id="view"></div>
+<div class="card">
+<h3>Laporan Hasil Belajar</h3>
+<p style="color:var(--mu);margin:0 0 6px">Isi nama dan kelas, kerjakan latihan, lalu unduh laporanmu.</p>
+<button class="b" onclick="dl()">⬇ Unduh Laporan (.txt)</button>
+</div>
+</main>
+<script>
+const T=[
+{t:"Offering Help",m:`<p>Digunakan untuk menawarkan bantuan kepada orang lain.</p><h3>Ungkapan menawarkan</h3><ul><li>Can I help you?</li><li>Shall I carry that for you?</li><li>Would you like me to …?</li><li>Let me help you.</li></ul><h3>Respons</h3><ul><li>Menerima: Yes, please. / That’s very kind of you.</li><li>Menolak: No, thanks. I can manage it.</li></ul>`,
+q:[["Your friend is carrying many heavy books. You say: …","Shall I carry them for you?","You must carry them.","I carried them yesterday.","They carry books."],
+["Which is a polite way to refuse an offer of help?","No, thanks. I can manage it.","Yes, please.","Let me help you.","Would you like me to?"],
+["“Would you like me to open the window?” Which answer accepts the offer?","Yes, please. Thank you.","No, I wouldn’t.","I opened it.","It is a window."]]},
+{t:"Advice, Suggestion, Opinion",m:`<h3>Advice (saran)</h3><ul><li>You should … / You’d better … / If I were you, I would …</li></ul><h3>Suggestion (usulan)</h3><ul><li>Why don’t you …? / How about …? / Let’s … / I suggest that …</li></ul><h3>Opinion (pendapat)</h3><ul><li>In my opinion … / I think … / I believe … / As far as I’m concerned …</li></ul><p>Setuju: I agree. Tidak setuju: I’m afraid I disagree.</p>`,
+q:[["You have a toothache. You ___ see a dentist.","should","did","are","was"],
+["Which sentence is a suggestion?","How about going to the beach?","In my opinion, it is expensive.","I went to the beach.","He is at the beach."],
+["Which sentence expresses an opinion?","I believe English is very useful.","Let’s learn English.","You’d better study.","Shall I help you?"]]},
+{t:"Recount Text",m:`<p>Tujuan: menceritakan kembali pengalaman atau peristiwa masa lalu.</p><h3>Struktur</h3><ul><li><b>Orientation</b>: siapa, kapan, di mana</li><li><b>Events</b>: urutan kejadian</li><li><b>Re-orientation</b>: kesimpulan/komentar penutup</li></ul><h3>Ciri kebahasaan</h3><ul><li>Simple past tense</li><li>Kata penghubung waktu: first, then, after that, finally</li></ul>`,
+q:[["The correct structure of a recount text is …","Orientation – Events – Re-orientation","General classification – Description","Identification – Description","Events – Orientation – Description"],
+["The dominant tense in a recount text is …","Simple past tense","Simple present tense","Simple future tense","Present continuous"],
+["“Last holiday, I visited Bali with my family.” This sentence is part of the …","Orientation","Events","Re-orientation","Description"]]},
+{t:"Factual Report",m:`<p>Tujuan: menyajikan informasi faktual tentang benda, hewan, tempat, atau fenomena.</p><h3>Struktur</h3><ul><li><b>General classification</b>: pengenalan/pengelompokan umum</li><li><b>Description</b>: bagian, sifat, perilaku, kegunaan</li></ul><h3>Ciri kebahasaan</h3><ul><li>Simple present tense</li><li>Istilah teknis/ilmiah, bersifat umum dan objektif</li></ul>`,
+q:[["The purpose of a factual report is to …","present factual information about something","tell past experiences","describe one specific person","ask for help"],
+["Which sentence is suitable for a factual report?","Crocodiles are reptiles that live in rivers.","I met a crocodile yesterday.","My crocodile is so cute.","We will see a crocodile."],
+["The structure of a factual report is …","General classification – Description","Orientation – Events","Thesis – Arguments","Identification – Events"]]},
+{t:"Descriptive Text",m:`<p>Tujuan: menggambarkan orang, benda, atau tempat tertentu.</p><h3>Struktur</h3><ul><li><b>Identification</b>: mengenalkan objek</li><li><b>Description</b>: ciri fisik, sifat, kualitas</li></ul><h3>Ciri kebahasaan</h3><ul><li>Simple present tense</li><li>Banyak adjectives, memakai to be dan to have</li></ul>`,
+q:[["A descriptive text describes …","a particular person, thing, or place","things in general","past events","future plans"],
+["“My cat is small and fluffy. It has green eyes.” Which language feature is dominant?","Adjectives","Modals","Past tense verbs","Conjunctions of time"],
+["The structure of a descriptive text is …","Identification – Description","Orientation – Events – Re-orientation","General classification – Description","Thesis – Arguments"]]},
+{t:"Modals",m:`<p>Modals: can, could, may, might, must, should, will, would, shall.</p><p><b>Rumus:</b> Subject + Modal + Verb 1 (base form)</p><h3>Fungsi</h3><ul><li>can/could: kemampuan</li><li>may/can: izin</li><li>might/may: kemungkinan</li><li>must: kewajiban</li><li>should: saran</li></ul>`,
+q:[["She ___ swim very well when she was young.","could","must","shall","may"],
+["You ___ wear a helmet when riding a motorcycle. (obligation)","must","might","could","would"],
+["Which sentence is correct?","He can speak English.","He can speaks English.","He can spoke English.","He cans speak English."]]},
+{t:"Continuous Tense",m:`<ul><li><b>Present continuous:</b> S + am/is/are + V-ing (sedang terjadi sekarang)</li><li><b>Past continuous:</b> S + was/were + V-ing (sedang terjadi di masa lalu)</li><li><b>Future continuous:</b> S + will be + V-ing</li></ul><p>Contoh: They are playing football now. / I was sleeping when the phone rang.</p>`,
+q:[["Right now, they ___ football.","are playing","plays","played","will play"],
+["I ___ when the phone rang.","was sleeping","am sleeping","sleep","will sleep"],
+["The formula of present continuous is …","S + am/is/are + V-ing","S + was/were + V-ing","S + V2","S + will + V1"]]},
+{t:"Degree of Comparison",m:`<ul><li><b>Positive:</b> as + adjective + as (sama dengan)</li><li><b>Comparative:</b> adjective-er + than / more + adjective + than</li><li><b>Superlative:</b> the + adjective-est / the most + adjective</li><li><b>Irregular:</b> good – better – best; bad – worse – worst</li></ul>`,
+q:[["Mount Everest is ___ mountain in the world.","the highest","higher","as high","more high"],
+["This bag is ___ than that one.","more expensive","most expensive","expensiver","as expensive"],
+["Ani is as ___ as Budi.","tall","taller","tallest","more tall"]]},
+{t:"Simple Present Tense",m:`<p><b>Fungsi:</b> kebiasaan, fakta umum, kebenaran ilmiah.</p><p><b>Rumus:</b> S + V1 (+s/es untuk he/she/it). Negatif: do/does + not + V1.</p><p>Keterangan: always, usually, often, sometimes, never, every day.</p>`,
+q:[["My father ___ to work every day.","goes","go","went","going"],
+["She ___ not like coffee.","does","do","did","is"],
+["Water ___ at 100°C.","boils","boil","boiled","is boil"]]},
+{t:"Simple Past Tense",m:`<p><b>Fungsi:</b> kejadian yang sudah selesai di masa lalu.</p><ul><li>Verbal: S + V2. Negatif: did not + V1</li><li>Nominal: S + was/were</li></ul><p>Keterangan: yesterday, last week, two days ago, in 2020.</p>`,
+q:[["We ___ to Yogyakarta last year.","went","go","goes","going"],
+["He ___ not finish his homework yesterday.","did","does","do","was"],
+["They ___ happy at the party last night.","were","was","are","been"]]},
+{t:"Simple Future Tense",m:`<p><b>Fungsi:</b> rencana, prediksi, janji, atau kejadian yang akan datang.</p><p><b>Rumus:</b> S + will + V1 / S + am/is/are going to + V1</p><p>Keterangan: tomorrow, next week, soon, in the future.</p>`,
+q:[["I think it ___ rain tomorrow.","will","did","is","was"],
+["Look at those dark clouds! It ___ rain.","is going to","did","was","has"],
+["Which sentence is correct?","They will play football next Sunday.","They will played football next Sunday.","They will plays football next Sunday.","They played will football next Sunday."]]}
+];
+let cur=0,R={},Q=[];
+const $=id=>document.getElementById(id);
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function nav(){$("nav").innerHTML=T.map((x,i)=>`<button class="${i==cur?"on":""} ${R[i]?"done":""}" onclick="go(${i})">${i+1}. ${x.t}<small>${R[i]?"⭐ Skor: "+R[i].s+"/"+R[i].n:"Belum dikerjakan"}</small></button>`).join("")}
+function go(i){cur=i;Q=T[i].q.map(q=>({q:q[0],a:q[1],o:sh(q.slice(1))}));nav();draw();scrollTo(0,0)}
+function draw(){const x=T[cur];
+$("view").innerHTML=`<div class="card"><h2>${cur+1}. ${x.t}</h2>${x.m}</div><div class="card"><h2>Latihan Soal</h2>`+
+Q.map((q,n)=>`<div class="q"><b>${n+1}. ${q.q}</b>`+q.o.map((o,k)=>`<label><input type="radio" name="q${n}" value="${k}"> ${o}</label>`).join("")+`</div>`).join("")+
+`<button class="b" onclick="chk()">Periksa Jawaban</button><button class="b g" onclick="go(cur)">Ulangi</button><div id="res"></div></div>`}
+function chk(){let s=0,d=[];
+Q.forEach((q,n)=>{const sel=document.querySelector(`input[name=q${n}]:checked`),box=document.getElementsByClassName("q")[n],ls=box.getElementsByTagName("label");
+const p=sel?+sel.value:-1;let ok=p>=0&&q.o[p]==q.a;if(ok)s++;
+q.o.forEach((o,k)=>{if(o==q.a)ls[k].className="ok";else if(k==p)ls[k].className="no"});
+d.push({q:q.q,p:p>=0?q.o[p]:"(tidak dijawab)",a:q.a,ok})});
+R[cur]={s,n:Q.length,d};nav();
+$("res").textContent=`Skor: ${s} / ${Q.length} (${Math.round(s/Q.length*100)})`}
+function dl(){const nm=$("nm").value.trim(),kl=$("kl").value.trim();
+if(!nm){alert("Isi nama siswa terlebih dahulu.");$("nm").focus();return}
+const ks=Object.keys(R);if(!ks.length){alert("Kerjakan minimal satu latihan dulu.");return}
+let S=0,N=0,L=["LAPORAN HASIL BELAJAR BAHASA INGGRIS","Nama   : "+nm,"Kelas  : "+(kl||"-"),"Tanggal: "+new Date().toLocaleString("id-ID"),"","RINGKASAN"];
+ks.forEach(i=>{const r=R[i];S+=r.s;N+=r.n;L.push(`- ${T[i].t}: ${r.s}/${r.n} (${Math.round(r.s/r.n*100)})`)});
+L.push("","Total: "+S+"/"+N+" (Nilai rata-rata: "+Math.round(S/N*100)+")","Materi belum dikerjakan: "+(T.filter((_,i)=>!R[i]).map(x=>x.t).join(", ")||"-"),"","DETAIL JAWABAN");
+ks.forEach(i=>{L.push("","["+T[i].t+"]");R[i].d.forEach((x,n)=>{L.push(`${n+1}. ${x.q}`,`   Jawabanmu: ${x.p} ${x.ok?"(Benar)":"(Salah) -> Kunci: "+x.a}`)})});
+const b=new Blob([L.join("\r\n")],{type:"text/plain;charset=utf-8"}),a=document.createElement("a");
+a.href=URL.createObjectURL(b);a.download="Laporan_"+nm.replace(/\s+/g,"_")+".txt";document.body.appendChild(a);a.click();a.remove()}
+go(0);
+</script>
+</body>
+</html>
